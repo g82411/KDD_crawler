@@ -3,7 +3,7 @@
 import requests
 import email
 import os
-os.chdir(os.path.abspath(__file__))
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from ConfigParser import RawConfigParser
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -40,7 +40,7 @@ def sentNews(subject,news):
     content += "</tbody></table></div>"
     mime_text = MIMEText(content,"html","utf-8")
     msg.attach(mime_text)
-    smtp = smtplib.SMTP(config.get("SmtpServer"))
+    smtp = smtplib.SMTP(config.get("Common","SmtpServer"))
     smtp.ehlo()
     smtp.sendmail(mailfrom, mailto.split(","), msg.as_string())
     smtp.quit()
